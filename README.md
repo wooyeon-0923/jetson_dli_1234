@@ -12,6 +12,8 @@ void setup()
 {
     Serial.begin(9600);
     pinMode(pin, INPUT);
+    ![image](https://github.com/user-attachments/assets/bcada1e0-23f1-4b58-916b-f0bfd10a449a)
+
     starttime = millis();
     Serial.println("미세먼지 측정을 시작합니다...");
     Serial.println("==============================");
