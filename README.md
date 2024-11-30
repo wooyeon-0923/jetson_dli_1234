@@ -33,7 +33,7 @@ $ sudo apt-get install fcitx-hangul
 
 Input Method Configuration에서 한글 추가
 
-### 3. Camera
+### 3. Camera (차례로 입력)
 ![image](https://github.com/user-attachments/assets/aee59202-22bb-4f04-8729-7405ab7892f8)
 
 dli@dli-desktop:~$  ls /dev/vi*
@@ -46,7 +46,47 @@ dli@dli-desktop:~/USB-Camera$ python3 usb-camera-gst.py
 
 dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
-### 4. Image Classification Project
+### 4. 헤드리스 모드 (차례로 입력)
+
+dli@dli-desktop:~$ ls
+
+dli@dli-desktop:~$ mkdir -p ~/nvdli-data
+
+dli@dli-desktop:~$#!/bin/bash
+ sudo docker run --runtime nvidia -it --rm --network host \
+    --memory=500M --memory-swap=4G \
+    --volume ~/nvdli-data:/nvdli-nano/data \
+    --volume /tmp/argus_socket:/tmp/argus_socket \
+    --device /dev/video0 \
+    nvcr.io/nvidia/dli/dli-nano-ai:v2.0.2-r32.7.1k
+
+dli@dli-desktop:~$ chmod +x docker_dli_run.sh
+
+dli@dli-desktop:~$ ./docker_dli_run.sh
+
+sudo systemctl disable nvzramconfig
+
+sudo systemctl set-default multi-user.target
+
+sudo fallocate -l 18G /mnt/18GB.swap
+
+sudo chmod 600 /mnt/18GB.swap
+
+sudo mkswap /mnt/18GB.swap
+
+sudo su
+
+echo "/mnt/18GB.swap swap swap defaults 0 0" >> /etc/fstab
+
+exit
+
+sudo reboot
+
+reboot 한 후, MICRO 5 PIN 연결 -> L4T 연결 된 표시가 오른쪽 하단에 나온다.
+
+sudo systemctl set-default graphical.target (시스템을 GUI 모드로 설정)
+
+### 5. Image Classification Project
 
 ![image](https://github.com/user-attachments/assets/4b94568c-c9d1-4893-a2f5-5262daadf44a)
 
@@ -84,7 +124,7 @@ dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
 위 단계를 반복하며 모델 성능 개선 작업 지속.
 
-### 5. 젯슨나노-아두이노, 미세먼지 측정 코드 (오류 날 경우, 한글을 영어로 바꿔서 진행)
+### 6. 젯슨나노-아두이노, 미세먼지 측정 코드 (오류 날 경우, 한글을 영어로 바꿔서 진행)
 
 ---
 
