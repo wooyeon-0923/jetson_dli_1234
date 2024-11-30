@@ -36,6 +36,9 @@ Input Method Configuration에서 한글 추가
 ### 3. Camera (차례로 입력)
 ![image](https://github.com/user-attachments/assets/aee59202-22bb-4f04-8729-7405ab7892f8)
 
+![image](https://github.com/user-attachments/assets/431e3730-287c-4606-9568-5fc1947c7f7b)
+
+
 dli@dli-desktop:~$  ls /dev/vi*
 
 dli@dli-desktop:~$ git clone https://github.com/jetsonhacks/USB-Camera.git
@@ -47,6 +50,9 @@ dli@dli-desktop:~/USB-Camera$ python3 usb-camera-gst.py
 dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
 ### 4. 헤드리스 모드 (차례로 입력)
+
+![image](https://github.com/user-attachments/assets/33acc73d-5adc-402e-b7fd-bdeb429bd5cd)
+
 
 dli@dli-desktop:~$ ls
 
