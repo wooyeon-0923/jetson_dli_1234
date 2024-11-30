@@ -1,4 +1,5 @@
 # jetson_dli_1234
+![image](https://github.com/user-attachments/assets/f2953de3-1d15-478f-9387-acbe3d2c9aef)
 
 ### 1. NVIDIA Jetson Nano 환경 구축
 
@@ -31,4 +32,16 @@ $ sudo apt-get install fcitx-hangul
 시스템 재부팅
 
 Input Method Configuration에서 한글 추가
+
+### 3. Camera
+
+dli@dli-desktop:~$  ls /dev/vi*
+
+dli@dli-desktop:~$ git clone https://github.com/jetsonhacks/USB-Camera.git
+
+dli@dli-desktop:~$ cd USB-Camera
+
+dli@dli-desktop:~/USB-Camera$ python3 usb-camera-gst.py
+
+dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
