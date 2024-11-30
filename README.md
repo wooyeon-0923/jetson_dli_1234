@@ -1,62 +1,23 @@
 # jetson_dli_1234
 
-int pin = 8;
-unsigned long duration;
-unsigned long starttime;
-unsigned long sampletime_ms = 30000;  // 30초 동안 샘플링
-unsigned long lowpulseoccupancy = 0;
-float ratio = 0;
-float concentration = 0;
+### 1. NVIDIA Jetson Nano 환경 구축
 
-void setup()
-{
-    Serial.begin(9600);
-    pinMode(pin, INPUT);
-    ![image](https://github.com/user-attachments/assets/bcada1e0-23f1-4b58-916b-f0bfd10a449a)
+1-1. Introduction
+1-2. jetack 4.6 다운로드
+1-3. SD Memory Card Formatter 다운로드
+1-4. balena Etcher 다운로드
+1-5. uSD에 Jetpack 4.6 burning (GUI이미지 굽기)
 
-    starttime = millis();
-    Serial.println("미세먼지 측정을 시작합니다...");
-    Serial.println("==============================");
-}
+### 2. Setup and First Boot
+https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit#setup
 
-void loop()
-{
-    duration = pulseIn(pin, LOW);
-    lowpulseoccupancy = lowpulseoccupancy + duration;
+일단 아래와 같이 수행해서 fcitx-hangul을 설치한다. 
+$ sudo apt-get update
+$ sudo apt-get install fcitx-hangul
+ 
+우분투 Setting에서 Region & Language 수행 - Manage installed Language 버튼 실행한다.
+실행되면 Language 관련 여러가지를 설치한다고 나오는데 설치한다.
+설치가 완료되면 하단 keyboard input method system 항목을 fcitx로 변경한다.
+시스템 재부팅
+Input Method Configuration에서 한글 추가
 
-    if ((millis()-starttime) > sampletime_ms)  // 30초마다 측정
-    {
-        ratio = lowpulseoccupancy/(sampletime_ms*10.0);
-        concentration = 1.1*pow(ratio,3)-3.8*pow(ratio,2)+520*ratio+0.62; // ug/m3 단위
-
-        Serial.println("==============================");
-        Serial.print("미세먼지 농도: ");
-        Serial.print(concentration);
-        Serial.println(" ug/m3");
-
-        // 대기질 상태 표시
-        Serial.print("대기질 상태: ");
-        if(concentration <= 30) {
-            Serial.println("좋음");
-        }
-        else if(concentration <= 80) {
-            Serial.println("보통");
-        }
-        else if(concentration <= 150) {
-            Serial.println("나쁨");
-        }
-        else {
-            Serial.println("매우 나쁨");
-        }
-
-        Serial.println("------------------------------");
-        Serial.print("측정 시간: ");
-        Serial.print(millis()/1000);
-        Serial.println("초");
-        Serial.println("==============================\n");
-
-        // 다음 측정을 위한 초기화
-        lowpulseoccupancy = 0;
-        starttime = millis();
-    }
-}
