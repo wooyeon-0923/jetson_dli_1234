@@ -48,14 +48,8 @@ dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
 ### 4. Image Classification Project
 
-# 이미지 분류 대화형 도구 - 간단 사용 가이드
+![image](https://github.com/user-attachments/assets/4b94568c-c9d1-4893-a2f5-5262daadf44a)
 
-### 개요  
-데이터를 수집하고 모델을 훈련하며, 실시간으로 테스트와 개선을 통해 "thumbs-up"과 "thumbs-down"과 같은 이미지를 분류하는 도구 제공.
-
----
-
-### 시작 단계
 
 #### **1단계: 노트북 열기**  
 - JupyterLab에서 `classification` 폴더로 이동한 후, `classification_interactive.ipynb` 파일 열기.  
@@ -89,3 +83,66 @@ dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 ---
 
 위 단계를 반복하며 모델 성능 개선 작업 지속.
+
+### 5. 젯슨나노-아두이노, 미세먼지 측정
+
+---
+int pin = 8;
+unsigned long duration;
+unsigned long starttime;
+unsigned long sampletime_ms = 30000;  // 30초 동안 샘플링
+unsigned long lowpulseoccupancy = 0;
+float ratio = 0;
+float concentration = 0;
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(pin, INPUT);
+    starttime = millis();
+    Serial.println("미세먼지 측정을 시작합니다...");
+    Serial.println("==============================");
+}
+
+void loop()
+{
+    duration = pulseIn(pin, LOW);
+    lowpulseoccupancy = lowpulseoccupancy + duration;
+
+    if ((millis()-starttime) > sampletime_ms)  // 30초마다 측정
+    {
+        ratio = lowpulseoccupancy/(sampletime_ms*10.0);
+        concentration = 1.1*pow(ratio,3)-3.8*pow(ratio,2)+520*ratio+0.62; // ug/m3 단위
+
+        Serial.println("==============================");
+        Serial.print("미세먼지 농도: ");
+        Serial.print(concentration);
+        Serial.println(" ug/m3");
+
+        // 대기질 상태 표시
+        Serial.print("대기질 상태: ");
+        if(concentration <= 30) {
+            Serial.println("좋음");
+        }
+        else if(concentration <= 80) {
+            Serial.println("보통");
+        }
+        else if(concentration <= 150) {
+            Serial.println("나쁨");
+        }
+        else {
+            Serial.println("매우 나쁨");
+        }
+
+        Serial.println("------------------------------");
+        Serial.print("측정 시간: ");
+        Serial.print(millis()/1000);
+        Serial.println("초");
+        Serial.println("==============================\n");
+
+        // 다음 측정을 위한 초기화
+        lowpulseoccupancy = 0;
+        starttime = millis();
+    }
+}
+---
