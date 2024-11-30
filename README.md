@@ -84,9 +84,10 @@ dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
 위 단계를 반복하며 모델 성능 개선 작업 지속.
 
-### 5. 젯슨나노-아두이노, 미세먼지 측정
+### 5. 젯슨나노-아두이노, 미세먼지 측정 코드 (오류 날 경우, 한글을 영어로 바꿔서 진행)
 
 ---
+
 int pin = 8;
 unsigned long duration;
 unsigned long starttime;
