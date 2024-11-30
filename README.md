@@ -34,6 +34,7 @@ $ sudo apt-get install fcitx-hangul
 Input Method Configuration에서 한글 추가
 
 ### 3. Camera
+![image](https://github.com/user-attachments/assets/aee59202-22bb-4f04-8729-7405ab7892f8)
 
 dli@dli-desktop:~$  ls /dev/vi*
 
@@ -45,3 +46,46 @@ dli@dli-desktop:~/USB-Camera$ python3 usb-camera-gst.py
 
 dli@dli-desktop:~/USB-Camera$  python3 face-detect-usb.py
 
+### 4. Image Classification Project
+
+# 이미지 분류 대화형 도구 - 간단 사용 가이드
+
+### 개요  
+데이터를 수집하고 모델을 훈련하며, 실시간으로 테스트와 개선을 통해 "thumbs-up"과 "thumbs-down"과 같은 이미지를 분류하는 도구 제공.
+
+---
+
+### 시작 단계
+
+#### **1단계: 노트북 열기**  
+- JupyterLab에서 `classification` 폴더로 이동한 후, `classification_interactive.ipynb` 파일 열기.  
+
+#### **2단계: 코드 실행**  
+- 노트북의 모든 셀을 순차적으로 실행하며 환경 초기화 진행.  
+- 카메라 활성화 시 USB 카메라가 올바르게 선택되었는지 확인.
+
+#### **3단계: 데이터 수집**  
+1. `data_collection_widget`를 사용해 데이터 수집 진행.  
+   - "thumbs-up" 이미지를 30장 수집.  
+   - "thumbs-down" 이미지를 30장 수집.  
+   - 각도를 조정하며 다양한 데이터를 확보하도록 설정.  
+
+#### **4단계: 모델 훈련**  
+- 에포크 수를 10으로 설정하고 "Train" 버튼 클릭하여 훈련 시작.  
+- 진행 상황에서 손실(Loss)과 정확도를 확인하며 모델 개선 확인.
+
+#### **5단계: 실시간 테스트**  
+- 라이브 카메라 피드를 통해 테스트 실행.  
+- 예측 결과와 확률을 슬라이더로 확인하여 성능 평가 진행.
+
+#### **6단계: 모델 개선**  
+1. 다른 배경과 각도로 "thumbs-up" 및 "thumbs-down" 데이터를 각각 30장 추가 수집.  
+2. 5 에포크만큼 추가 훈련 진행.  
+3. 다양한 거리와 위치에서 모델 성능 확인 및 테스트 반복.  
+
+#### **7단계: 모델 저장**  
+- 모델 이름 입력 후 "save model" 클릭하여 모델 저장 완료.
+
+---
+
+위 단계를 반복하며 모델 성능 개선 작업 지속.
