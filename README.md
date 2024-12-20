@@ -214,5 +214,3 @@ sudo systemctl set-default graphical.target
 - [SD 카드 포맷터 다운로드](https://www.sdcard.org/downloads/formatter/)
 
 ---
-
-이 가이드를 따라 NVIDIA Jetson Nano의 환경을 구축하고 다양한 프로젝트를 수행해보세요. 궁금한 사항이나 문제가 발생하면 위의 참고 자료를 확인하거나 관련 커뮤니티에 질문하시기 바랍니다.
